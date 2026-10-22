@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Advent im Wichteldorf</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="hud"></header>
+    <div id="game">
+      <canvas id="screen" width="256" height="224"></canvas>
+      <div id="toast"></div>
+      <div id="dialog" hidden>
+        <div id="speaker"></div>
+        <div id="text"></div>
+        <div id="letter" hidden></div>
+        <ul id="choices" hidden></ul>
+        <input id="answer" type="text" autocomplete="off" spellcheck="false" hidden>
+        <div id="hint" hidden>&#9660;</div>
+      </div>
+    </div>
+    <footer>
+      Pfeiltasten / WASD: laufen &nbsp;·&nbsp; Enter / Leertaste / E: sprechen &amp; weiter &nbsp;·&nbsp; Esc: abbrechen
+    </footer>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>
