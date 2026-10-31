@@ -30,6 +30,7 @@ export default async function handler(req, res) {
     const existing = await sql`SELECT id, birthdate FROM users WHERE username_lower = ${usernameLower}`;
 
     let uid;
+    let isNewUser = false;
     if (existing.length) {
       if (existing[0].birthdate !== birthdate) {
         res.status(401).json({ error: 'Benutzername oder Geburtsdatum stimmt nicht.' });
@@ -43,10 +44,11 @@ export default async function handler(req, res) {
         RETURNING id
       `;
       uid = inserted[0].id;
+      isNewUser = true;
     }
 
     setSessionCookie(req, res, { uid, username });
-    res.status(200).json({ username, isAdmin: isAdminUsername(username) });
+    res.status(200).json({ username, isAdmin: isAdminUsername(username), isNewUser });
   } catch (err) {
     if (err?.code === '23505') { res.status(409).json({ error: 'Dieser Benutzername wurde gerade vergeben. Bitte erneut versuchen.' }); return; }
     console.error(err);

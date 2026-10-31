@@ -56,3 +56,10 @@ footer button { font: inherit; color: #ffd85a; background: none; border: none; c
 #login-form input { font: inherit; color: #fff; background: #0a0f33; border: 1px solid #ffd85a; outline: none; padding: 6px 8px; }
 #login-form button[type="submit"] { font: inherit; font-weight: bold; color: #18206a; background: #ffd85a; border: none; border-radius: 3px; padding: 8px; cursor: pointer; margin-top: 4px; }
 #login-error { min-height: 1.2em; color: #ff9b9b; font-size: 12px; text-align: center; }
+
+#intro-overlay { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 8px; }
+#intro-overlay[hidden] { display: none; }
+#intro-box { display: flex; flex-direction: column; gap: 10px; width: min(90vw, 420px); padding: 16px 20px; background: linear-gradient(#2a3a9a, #18206a); border: 3px solid #fff; border-radius: 6px; box-shadow: 0 0 0 2px #0a0f33; }
+#intro-box h1 { margin: 0; font-size: 18px; text-align: center; color: #ffd85a; }
+#intro-box p { margin: 0; font-size: 13px; line-height: 1.5; }
+#intro-box button { font: inherit; font-weight: bold; color: #18206a; background: #ffd85a; border: none; border-radius: 3px; padding: 8px; cursor: pointer; margin-top: 4px; }
