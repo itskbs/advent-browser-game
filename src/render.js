@@ -1,5 +1,5 @@
 import { TILE, VIEW_W, VIEW_H, isUnlocked, giftUnlocked } from './config.js';
-import { MAP_W, MAP_H, T, GIFT_HOUSE, ROOM } from './world.js';
+import { MAP_W, MAP_H, T, GIFT_HOUSE, SPORTS_FIELD, SCHOOL, KINDERGARTEN, PLAYGROUND, ROOM } from './world.js';
 
 const rect = (ctx, c, x, y, w, h) => { ctx.fillStyle = c; ctx.fillRect(x, y, w, h); };
 
@@ -24,6 +24,18 @@ export function buildBackground(world) {
     if (t === T.PATH) {
       rect(ctx, '#dccb9c', x, y, TILE, TILE);
       for (let i = 0; i < 5; i++) rect(ctx, '#c8b480', x + ((rnd() * 14) | 0), y + ((rnd() * 14) | 0), 2, 1);
+    } else if (t === T.DIKE) {
+      rect(ctx, '#5a9152', x, y, TILE, TILE);
+      rect(ctx, '#4a7d44', x, y, TILE, 3);
+      for (let i = 0; i < 4; i++) rect(ctx, '#6ba562', x + ((rnd() * 14) | 0), y + 5 + ((rnd() * 9) | 0), 2, 1);
+    } else if (t === T.BOARDWALK) {
+      rect(ctx, '#8a6239', x, y, TILE, TILE);
+      for (let i = 0; i < 4; i++) rect(ctx, '#6e4c2a', x, y + i * 4 + 1, TILE, 1);
+      rect(ctx, '#3f2c17', x + 7, y, 1, TILE);
+    } else if (t === T.MARSH) {
+      rect(ctx, '#7a7a4a', x, y, TILE, TILE);
+      rect(ctx, '#6b6b3e', x, y, TILE, TILE / 2);
+      for (let i = 0; i < 3; i++) rect(ctx, '#4f7a4a', x + ((rnd() * 13) | 0), y + ((rnd() * 13) | 0), 1, 3);
     } else if (t === T.WATER) {
       rect(ctx, '#3b82c4', x, y, TILE, TILE);
       rect(ctx, '#6aa8e0', x + 2 + ((rnd() * 4) | 0), y + 4, 5, 1);
@@ -143,6 +155,144 @@ function drawHouse(ctx, h, state) {
   if (!open) drawLock(ctx, x + 21, y + 36);
 }
 
+function drawSchool(ctx) {
+  // Grundschule im Format eines normalen Hauses
+  const x = SCHOOL.x * TILE, y = SCHOOL.y * TILE;
+  rect(ctx, 'rgba(0,0,0,.2)', x + 2, y + 46, 46, 3);
+  rect(ctx, '#c0392b', x, y + 2, 48, 22);
+  for (let r = 0; r < 5; r++) rect(ctx, 'rgba(0,0,0,.18)', x, y + 7 + r * 4, 48, 1);
+  rect(ctx, '#fff', x, y, 48, 4);
+  rect(ctx, 'rgba(0,0,0,.25)', x, y + 22, 48, 2);
+  drawSign(ctx, x + 10, y + 9, 28, 'SCHULE', false);
+  rect(ctx, '#f1e3c3', x + 2, y + 24, 44, 24);
+  rect(ctx, '#8b5a2b', x + 2, y + 24, 44, 2);
+  rect(ctx, '#8b5a2b', x + 2, y + 24, 2, 24);
+  rect(ctx, '#8b5a2b', x + 44, y + 24, 2, 24);
+  for (const wx of [x + 6, x + 32]) {
+    rect(ctx, '#8b5a2b', wx - 1, y + 28, 12, 11);
+    rect(ctx, '#ffe58a', wx, y + 29, 10, 9);
+    rect(ctx, '#8b5a2b', wx + 4, y + 29, 1, 9);
+    rect(ctx, '#8b5a2b', wx, y + 33, 10, 1);
+  }
+  rect(ctx, '#3d230e', x + 18, y + 31, 12, 17);
+  rect(ctx, '#6b3f1d', x + 19, y + 32, 10, 16);
+  rect(ctx, '#7d4c26', x + 20, y + 33, 3, 14);
+  rect(ctx, '#ffd85a', x + 26, y + 41, 2, 2);
+}
+
+function drawKindergarten(ctx) {
+  // Kindergarten, etwas verspielter als die Schule
+  const x = KINDERGARTEN.x * TILE, y = KINDERGARTEN.y * TILE;
+  rect(ctx, 'rgba(0,0,0,.2)', x + 2, y + 46, 46, 3);
+  rect(ctx, '#e8a33d', x, y + 2, 48, 22);
+  for (let r = 0; r < 5; r++) rect(ctx, 'rgba(0,0,0,.15)', x, y + 7 + r * 4, 48, 1);
+  rect(ctx, '#fff', x, y, 48, 4);
+  rect(ctx, 'rgba(0,0,0,.25)', x, y + 22, 48, 2);
+  drawSign(ctx, x + 12, y + 9, 24, 'KITA', false);
+  rect(ctx, '#fcefd0', x + 2, y + 24, 44, 24);
+  rect(ctx, '#e8a33d', x + 2, y + 24, 44, 2);
+  rect(ctx, '#e8a33d', x + 2, y + 24, 2, 24);
+  rect(ctx, '#e8a33d', x + 44, y + 24, 2, 24);
+  for (const wx of [x + 6, x + 32]) {
+    rect(ctx, '#e8a33d', wx - 1, y + 28, 12, 11);
+    rect(ctx, '#9bd6e8', wx, y + 29, 10, 9);
+    rect(ctx, '#e8a33d', wx + 4, y + 29, 1, 9);
+    rect(ctx, '#e8a33d', wx, y + 33, 10, 1);
+  }
+  rect(ctx, '#3d230e', x + 18, y + 31, 12, 17);
+  rect(ctx, '#2e9e3e', x + 19, y + 32, 10, 16);
+  rect(ctx, '#246b2e', x + 20, y + 33, 3, 14);
+  rect(ctx, '#ffd85a', x + 26, y + 41, 2, 2);
+}
+
+function drawPlayground(ctx) {
+  const x = PLAYGROUND.x * TILE, y = PLAYGROUND.y * TILE;
+  const w = PLAYGROUND.w * TILE, h = PLAYGROUND.h * TILE;
+  rect(ctx, '#d9c48a', x, y, w, h); // Sand
+  // Schaukel
+  rect(ctx, '#8b5a2b', x + 6, y + 4, 2, 20);
+  rect(ctx, '#8b5a2b', x + 22, y + 4, 2, 20);
+  rect(ctx, '#8b5a2b', x + 6, y + 4, 18, 2);
+  rect(ctx, '#3d230e', x + 13, y + 16, 6, 3);
+  rect(ctx, '#555', x + 9, y + 6, 1, 10); rect(ctx, '#555', x + 20, y + 6, 1, 10);
+  // Rutsche
+  rect(ctx, '#e8741c', x + w - 20, y + 2, 6, 14);
+  rect(ctx, '#ffd85a', x + w - 22, y + 14, 20, 4);
+}
+
+function drawSportsField(ctx) {
+  const x = SPORTS_FIELD.x * TILE, y = SPORTS_FIELD.y * TILE;
+  const w = SPORTS_FIELD.w * TILE, h = SPORTS_FIELD.h * TILE;
+  // Rasenstreifen
+  const stripes = 6;
+  for (let i = 0; i < stripes; i++) rect(ctx, i % 2 ? '#3f8f3f' : '#479349', x, y + Math.round((h / stripes) * i), w, Math.ceil(h / stripes));
+  // Spielfeldrand
+  rect(ctx, '#fff', x, y, w, 2); rect(ctx, '#fff', x, y + h - 2, w, 2);
+  rect(ctx, '#fff', x, y, 2, h); rect(ctx, '#fff', x + w - 2, y, 2, h);
+  // Mittellinie + Anstoßkreis
+  rect(ctx, '#fff', x + w / 2 - 1, y, 2, h);
+  ctx.strokeStyle = '#fff'; ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.arc(x + w / 2, y + h / 2, 14, 0, Math.PI * 2); ctx.stroke();
+  rect(ctx, '#fff', x + w / 2 - 1, y + h / 2 - 1, 2, 2);
+  // Strafräume links/rechts
+  const boxW = 22, boxH = h - 24;
+  const boxY = y + 12;
+  rect(ctx, '#fff', x, boxY, boxW, 2); rect(ctx, '#fff', x, boxY + boxH - 2, boxW, 2); rect(ctx, '#fff', x + boxW - 2, boxY, 2, boxH);
+  rect(ctx, '#fff', x + w - boxW, boxY, boxW, 2); rect(ctx, '#fff', x + w - boxW, boxY + boxH - 2, boxW, 2); rect(ctx, '#fff', x + w - boxW, boxY, 2, boxH);
+  // Tore
+  rect(ctx, '#e8edf2', x - 4, y + h / 2 - 9, 4, 18);
+  rect(ctx, '#e8edf2', x + w, y + h / 2 - 9, 4, 18);
+}
+
+function drawManhole(ctx, x, y, t) {
+  // Gullydeckel
+  rect(ctx, '#3a3a3a', x + 2, y + 10, 12, 5);
+  rect(ctx, '#5a5a5a', x + 3, y + 10, 10, 4);
+  for (let i = 0; i < 3; i++) rect(ctx, '#3a3a3a', x + 4 + i * 3, y + 11, 1, 2);
+  rect(ctx, '#1a1a1a', x + 7, y + 11, 2, 2);
+  // Person, über den Deckel gebeugt und lauschend
+  rect(ctx, '#1b5e20', x, y + 4, 3, 5);       // Knie links
+  rect(ctx, '#1b5e20', x + 11, y + 4, 3, 5);  // Knie rechts
+  rect(ctx, '#2e9e3e', x + 3, y + 1, 8, 6);   // Rücken/Tunika, nach vorn gebeugt
+  rect(ctx, '#f0c090', x + 4, y - 2, 6, 5);   // Kopf, nach unten geneigt
+  rect(ctx, '#c0392b', x + 4, y - 3, 6, 2);   // Mütze
+  if (Math.floor(t / 500) % 2) rect(ctx, '#ffe58a', x + 6, y + 9, 2, 1); // horcht ganz genau hin
+}
+
+function drawKoyer(ctx, x, y) {
+  rect(ctx, 'rgba(0,0,0,.2)', x + 2, y + 13, 12, 3);
+  rect(ctx, '#8d99a6', x + 2, y + 13, 12, 2); // Sockel
+  rect(ctx, '#8a6a3a', x + 5, y + 2, 6, 8);   // bronzene Figur
+  rect(ctx, '#8a6a3a', x + 7, y - 2, 2, 4);
+  rect(ctx, '#6b5024', x + 3, y + 7, 10, 2);  // Spaten
+  rect(ctx, '#b89a5a', x + 4, y, 8, 3);       // Kopf
+}
+
+function drawDecorHouse(ctx, d) {
+  // Reine Kulisse zum Auffüllen leerer Flächen: kein Schild, kein Schloss.
+  const x = d.x * TILE, y = d.y * TILE;
+  const roof = ROOF[(d.variant + 3) % ROOF.length];
+  rect(ctx, 'rgba(0,0,0,.2)', x + 2, y + 46, 46, 3);
+  rect(ctx, roof, x, y + 2, 48, 22);
+  for (let r = 0; r < 5; r++) rect(ctx, 'rgba(0,0,0,.18)', x, y + 7 + r * 4, 48, 1);
+  rect(ctx, '#fff', x, y, 48, 4);
+  rect(ctx, 'rgba(0,0,0,.25)', x, y + 22, 48, 2);
+  rect(ctx, '#f1e3c3', x + 2, y + 24, 44, 24);
+  rect(ctx, '#8b5a2b', x + 2, y + 24, 44, 2);
+  rect(ctx, '#8b5a2b', x + 2, y + 24, 2, 24);
+  rect(ctx, '#8b5a2b', x + 44, y + 24, 2, 24);
+  for (const wx of [x + 6, x + 32]) {
+    rect(ctx, '#8b5a2b', wx - 1, y + 28, 12, 11);
+    rect(ctx, '#ffe58a', wx, y + 29, 10, 9);
+    rect(ctx, '#8b5a2b', wx + 4, y + 29, 1, 9);
+    rect(ctx, '#8b5a2b', wx, y + 33, 10, 1);
+  }
+  rect(ctx, '#3d230e', x + 18, y + 31, 12, 17);
+  rect(ctx, '#6b3f1d', x + 19, y + 32, 10, 16);
+  rect(ctx, '#7d4c26', x + 20, y + 33, 3, 14);
+  rect(ctx, '#ffd85a', x + 26, y + 41, 2, 2);
+}
+
 function drawGiftHouse(ctx, state, t) {
   const x = GIFT_HOUSE.x * TILE, y = GIFT_HOUSE.y * TILE;
   const open = giftUnlocked();
@@ -204,6 +354,10 @@ function drawEgg(ctx, o, t) {
     drawChar(ctx, x + 8, y + 15, 'left', 0, { tunic: '#1565c0', hat: '#c0392b', skin: '#f0c090', beard: true });
     rect(ctx, '#6b4423', x - 12, y + 2, 14, 1);
     rect(ctx, '#ddd', x - 12, y + 2, 1, 14 + Math.floor(t / 500) % 2);
+  } else if (o.kind === 'koyer') {
+    drawKoyer(ctx, x, y);
+  } else if (o.kind === 'manhole') {
+    drawManhole(ctx, x, y, t);
   }
 }
 
@@ -214,8 +368,13 @@ export function drawWorld(ctx, game, bg, t) {
   ctx.save();
   ctx.translate(-cam.x, -cam.y);
 
+  drawSportsField(ctx);
+  drawPlayground(ctx);
   for (const h of world.houses) drawHouse(ctx, h, state);
+  for (const d of world.decor) drawDecorHouse(ctx, d);
   drawGiftHouse(ctx, state, t);
+  drawSchool(ctx);
+  drawKindergarten(ctx);
 
   const items = [];
   const x0 = Math.max(0, (cam.x / TILE | 0) - 1), x1 = Math.min(MAP_W - 1, ((cam.x + VIEW_W) / TILE | 0) + 1);

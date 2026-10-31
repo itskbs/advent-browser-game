@@ -83,8 +83,10 @@ export const GIFT = {
 };
 
 export const EGGS = [
-  { id: 'grave', kind: 'grave', tx: 28, ty: 16, text: ['Hier ruht der letzte Keks.', 'Er wurde um 3:00 Uhr nachts gegessen. Du weißt schon, von wem.'] },
-  { id: 'snowman', kind: 'snowman', tx: 37, ty: 10, text: ['Der Schneemann flüstert:', '„Ich bin nicht dick. Ich habe nur Winterspeck!“'] },
-  { id: 'bush', kind: 'bush', tx: 1, ty: 3, text: ['Der Busch raschelt verdächtig …', 'Ein Wichtel springt heraus, ruft „Buh!“ und rennt davon.'] },
-  { id: 'angler', kind: 'angler', tx: 12, ty: 17, text: ['Pssst! Ich angle seit 1987 nach dem großen Geschenk.', 'Bisher: ein Stiefel, drei Socken und ein Lebkuchenherz.'] },
+  { id: 'grave', kind: 'grave', tx: 3, ty: 20, text: ['Hier ruht der letzte Keks.', 'Er wurde um 3:00 Uhr nachts gegessen. Du weißt schon, von wem.'] },
+  { id: 'snowman', kind: 'snowman', tx: 40, ty: 14, text: ['Der Schneemann flüstert:', '„Ich bin nicht dick. Ich habe nur Winterspeck!“'] },
+  { id: 'bush', kind: 'bush', tx: 2, ty: 30, text: ['Der Busch raschelt verdächtig …', 'Ein Wichtel springt heraus, ruft „Buh!“ und rennt davon.'] },
+  { id: 'angler', kind: 'angler', tx: 26, ty: 1, text: ['Pssst! Ich angle seit 1987 vom Bohlenweg aus nach dem großen Geschenk.', 'Bisher: ein Stiefel, drei Socken und ein Lebkuchenherz.'] },
+  { id: 'koyer', kind: 'koyer', tx: 17, ty: 4, text: ['Ein bronzener Deicharbeiter steht hier, Spaten in der Hand.', 'Eine Tafel verrät: „Dem Koyer, der mit kalten Händen warme Wohnungen baute.“'] },
+  { id: 'manhole', kind: 'manhole', tx: 53, ty: 29, text: ['Jemand kniet über dem Gullydeckel und lauscht hinein.', '„Ich höre Glöckchen … und jemanden, der ,ho ho ho` nuschelt!“'] },
 ];
