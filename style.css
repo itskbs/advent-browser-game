@@ -33,3 +33,13 @@ html, body { margin: 0; height: 100%; background: #0d1226; color: #e8ecff; font-
 @keyframes blink { 50% { opacity: 0; } }
 
 footer { font-size: 12px; color: #8b97d6; text-align: center; }
+footer button { font: inherit; color: #ffd85a; background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
+
+#login-overlay { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 8px; }
+#login-overlay[hidden] { display: none; }
+#login-form { display: flex; flex-direction: column; gap: 8px; width: min(90vw, 320px); padding: calc(6px * var(--s, 2)) calc(8px * var(--s, 2)); background: linear-gradient(#2a3a9a, #18206a); border: 3px solid #fff; border-radius: 6px; box-shadow: 0 0 0 2px #0a0f33; }
+#login-form h1 { margin: 0 0 4px; font-size: 16px; text-align: center; color: #ffd85a; }
+#login-form label { font-size: 12px; color: #e8ecff; }
+#login-form input { font: inherit; color: #fff; background: #0a0f33; border: 1px solid #ffd85a; outline: none; padding: 6px 8px; }
+#login-form button[type="submit"] { font: inherit; font-weight: bold; color: #18206a; background: #ffd85a; border: none; border-radius: 3px; padding: 8px; cursor: pointer; margin-top: 4px; }
+#login-error { min-height: 1.2em; color: #ff9b9b; font-size: 12px; text-align: center; }

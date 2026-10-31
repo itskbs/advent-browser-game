@@ -1,23 +1,43 @@
-const KEY = 'advent-wichteldorf-v1';
+// Spielstand liegt jetzt serverseitig (siehe api/progress.js), nicht mehr in localStorage.
+// loadState lädt ihn einmal beim Start; solve/findEgg/openGift aktualisieren sofort lokal
+// (für ein reaktionsschnelles HUD) und synchronisieren im Hintergrund mit dem Server.
 
-export function loadState(onChange) {
+export async function loadState(onChange) {
   let data = { solved: {}, eggs: {}, gift: false };
   try {
-    data = { ...data, ...JSON.parse(localStorage.getItem(KEY) || '{}') };
-  } catch { /* kaputter oder blockierter Speicher: frisch starten */ }
+    const res = await fetch('/api/progress');
+    if (res.ok) data = { ...data, ...(await res.json()) };
+  } catch { /* offline: mit leerem Fortschritt starten */ }
 
-  const save = () => {
-    try { localStorage.setItem(KEY, JSON.stringify(data)); } catch { /* ignorieren */ }
-    onChange?.();
+  const sync = (body) => {
+    fetch('/api/progress', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).catch(() => { /* bestmöglich, kein Retry nötig für dieses Spiel */ });
   };
 
   return {
     get solved() { return data.solved; },
     get eggs() { return data.eggs; },
     get gift() { return data.gift; },
-    solve(day) { data.solved[day] = true; save(); },
-    findEgg(id) { data.eggs[id] = true; save(); },
-    openGift() { data.gift = true; save(); },
-    reset() { data = { solved: {}, eggs: {}, gift: false }; save(); },
+    solve(day) {
+      if (data.solved[day]) return;
+      data.solved[day] = true;
+      onChange?.();
+      sync({ action: 'solve', day });
+    },
+    findEgg(id) {
+      if (data.eggs[id]) return;
+      data.eggs[id] = true;
+      onChange?.();
+      sync({ action: 'egg', id });
+    },
+    openGift() {
+      if (data.gift) return;
+      data.gift = true;
+      onChange?.();
+      sync({ action: 'gift' });
+    },
   };
 }

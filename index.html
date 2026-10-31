@@ -7,7 +7,18 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app">
+  <div id="login-overlay" hidden>
+    <form id="login-form">
+      <h1>Advent im Wichteldorf</h1>
+      <label for="login-username">Name</label>
+      <input id="login-username" type="text" autocomplete="username" maxlength="40" required>
+      <label for="login-birthdate">Geburtsdatum</label>
+      <input id="login-birthdate" type="date" autocomplete="bday" required>
+      <button type="submit">Los geht's!</button>
+      <div id="login-error" role="alert"></div>
+    </form>
+  </div>
+  <div id="app" hidden>
     <header id="hud"></header>
     <div id="game">
       <canvas id="screen" width="256" height="224"></canvas>
@@ -23,6 +34,8 @@
     </div>
     <footer>
       Pfeiltasten / WASD: laufen &nbsp;·&nbsp; Enter / Leertaste / E: sprechen &amp; weiter &nbsp;·&nbsp; Esc: abbrechen
+      <br>
+      Angemeldet als <span id="user-name"></span> &nbsp;·&nbsp; <button id="logout-btn" type="button">Abmelden</button>
     </footer>
   </div>
   <script type="module" src="src/main.js"></script>

@@ -1,4 +1,4 @@
-import { SOLUTION, DAYS } from './config.js';
+import { SOLUTION, LETTER_ORDER, DAYS } from './config.js';
 
 // Alle Texte sind vorerst Platzhalter. Ein Haus ersetzt man, indem man seinen Eintrag in REAL überschreibt.
 const NPC_NAMES = [
@@ -61,7 +61,7 @@ export const HOUSES = Array.from({ length: DAYS }, (_, i) => {
   const tunic = TUNICS[i % TUNICS.length];
   return {
     day,
-    letter: SOLUTION[i],
+    letter: SOLUTION[LETTER_ORDER[i]],
     npc: { name, pal: { tunic, hat: tunic, skin: '#f0c090', beard: i % 3 === 0 } },
     story: [INTROS[i % INTROS.length](day), STORIES[i % STORIES.length], 'Aber genug geplaudert. Ich habe eine Frage an dich!'],
     quiz: REAL[day] ?? placeholderQuiz(day),
@@ -74,7 +74,7 @@ export const HOUSES = Array.from({ length: DAYS }, (_, i) => {
 export const GIFT = {
   npc: { name: 'Das große Türchen' },
   locked: 'Das große Türchen öffnet sich erst am 24. Dezember.',
-  ask: 'Du hast alle Buchstaben! Wie lautet das Lösungswort?',
+  ask: 'Du hast alle Buchstaben gesammelt – aber ganz durcheinander! Ordne sie neu, um das Lösungswort zu bilden.',
   win: [
     'Klick! Das Schloss springt auf, die Türflügel schwingen auseinander und warmes Licht strömt heraus.',
     'FROHE WEIHNACHTEN! Hier wartet später dein Geschenk. (Platzhalter)',
