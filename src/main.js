@@ -1,4 +1,4 @@
-import { TILE, VIEW_W, VIEW_H, DAYS, SOLUTION, SOLUTION_WORDS, CHEAT, SOLVE_ALL, NOW, isUnlocked, giftUnlocked, applyAdmin } from './config.js';
+import { TILE, VIEW_W, VIEW_H, DAYS, SOLUTION, SOLUTION_WORDS, CHEAT, SOLVE_ALL, NOW, isUnlocked, giftUnlocked, applyAdmin, setCheat, unlockDay } from './config.js';
 import { buildWorld, ROOM, MAP_W, MAP_H } from './world.js';
 import { HOUSES, GIFT, EGGS } from './content.js';
 import { loadState } from './state.js';
@@ -78,6 +78,28 @@ async function boot() {
       (session.isAdmin && new URLSearchParams(location.search).has('date') ? `<span class="badge cheat">Datum: ${NOW.toLocaleDateString('de-DE')}</span>` : '');
   }
   renderHud();
+
+  // ---------- Admin-Panel ----------
+  if (session.isAdmin) {
+    document.getElementById('admin-panel').hidden = false;
+    document.getElementById('admin-unlock-all').addEventListener('click', () => {
+      setCheat(true);
+      renderHud();
+    });
+    document.getElementById('admin-solve-all').addEventListener('click', () => {
+      for (const h of HOUSES) if (!state.solved[h.day]) state.solve(h.day);
+    });
+    document.getElementById('admin-unlock-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const dayInput = document.getElementById('admin-unlock-day');
+      const day = Number(dayInput.value);
+      if (Number.isInteger(day) && day >= 1 && day <= DAYS) unlockDay(day);
+      dayInput.value = '';
+    });
+    document.getElementById('admin-reset').addEventListener('click', () => {
+      if (confirm('Fortschritt wirklich zurücksetzen? Alle gelösten Rätsel, Eastereggs und das Geschenk gehen verloren.')) state.reset();
+    });
+  }
 
   // ---------- Skalierung ----------
   function resize() {

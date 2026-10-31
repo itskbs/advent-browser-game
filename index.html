@@ -20,17 +20,30 @@
   </div>
   <div id="app" hidden>
     <header id="hud"></header>
-    <div id="game">
-      <canvas id="screen" width="256" height="224"></canvas>
-      <div id="toast"></div>
-      <div id="dialog" hidden>
-        <div id="speaker"></div>
-        <div id="text"></div>
-        <div id="letter" hidden></div>
-        <ul id="choices" hidden></ul>
-        <input id="answer" type="text" autocomplete="off" spellcheck="false" hidden>
-        <div id="hint" hidden>&#9660;</div>
+    <div id="layout">
+      <div id="game">
+        <canvas id="screen" width="256" height="224"></canvas>
+        <div id="toast"></div>
+        <div id="dialog" hidden>
+          <div id="speaker"></div>
+          <div id="text"></div>
+          <div id="letter" hidden></div>
+          <ul id="choices" hidden></ul>
+          <input id="answer" type="text" autocomplete="off" spellcheck="false" hidden>
+          <div id="hint" hidden>&#9660;</div>
+        </div>
       </div>
+      <aside id="admin-panel" hidden>
+        <h2>Admin</h2>
+        <button id="admin-unlock-all" type="button">Alle Türen öffnen</button>
+        <button id="admin-solve-all" type="button">Alle Rätsel lösen</button>
+        <form id="admin-unlock-form">
+          <label for="admin-unlock-day">Haus Nr.</label>
+          <input id="admin-unlock-day" type="number" min="1" max="23" required>
+          <button type="submit">Öffnen</button>
+        </form>
+        <button id="admin-reset" type="button" class="danger">Fortschritt zurücksetzen</button>
+      </aside>
     </div>
     <footer>
       Pfeiltasten / WASD: laufen &nbsp;·&nbsp; Enter / Leertaste / E: sprechen &amp; weiter &nbsp;·&nbsp; Esc: abbrechen

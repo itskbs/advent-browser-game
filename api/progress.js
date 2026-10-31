@@ -24,13 +24,15 @@ export default async function handler(req, res) {
     const rows = await sql`SELECT progress FROM users WHERE id = ${session.uid}`;
     const data = normalize(rows[0]?.progress);
 
+    let next = data;
     if (body.action === 'solve' && body.day) data.solved[body.day] = true;
     else if (body.action === 'egg' && body.id) data.eggs[body.id] = true;
     else if (body.action === 'gift') data.gift = true;
+    else if (body.action === 'reset') next = { solved: {}, eggs: {}, gift: false };
     else { res.status(400).json({ error: 'Ungültige Aktion.' }); return; }
 
-    await sql`UPDATE users SET progress = ${JSON.stringify(data)}::jsonb WHERE id = ${session.uid}`;
-    res.status(200).json(data);
+    await sql`UPDATE users SET progress = ${JSON.stringify(next)}::jsonb WHERE id = ${session.uid}`;
+    res.status(200).json(next);
     return;
   }
 

@@ -39,5 +39,10 @@ export async function loadState(onChange) {
       onChange?.();
       sync({ action: 'gift' });
     },
+    reset() {
+      data = { solved: {}, eggs: {}, gift: false };
+      onChange?.();
+      sync({ action: 'reset' });
+    },
   };
 }
