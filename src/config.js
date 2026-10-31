@@ -41,5 +41,11 @@ export function applyAdmin(isAdmin) {
 }
 
 const inDecember = (day) => NOW.getMonth() === 11 && NOW.getDate() >= day;
-export const isUnlocked = (day) => CHEAT || inDecember(day);
+
+// Einzeln freigeschaltete Häuser über das Admin-Panel, unabhängig von CHEAT/Datum.
+const FORCE_UNLOCKED = new Set();
+export function unlockDay(day) { FORCE_UNLOCKED.add(day); }
+export function setCheat(v) { CHEAT = v; }
+
+export const isUnlocked = (day) => CHEAT || FORCE_UNLOCKED.has(day) || inDecember(day);
 export const giftUnlocked = () => CHEAT || inDecember(24);

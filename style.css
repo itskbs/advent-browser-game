@@ -12,8 +12,21 @@ html, body { margin: 0; height: 100%; background: #0d1226; color: #e8ecff; font-
 #hud .badge { padding: 2px 8px; border: 2px solid #4a5a9a; background: #1b2350; }
 #hud .badge.cheat { border-color: #ff6b6b; color: #ff9b9b; }
 
+#layout { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; }
+
 #game { position: relative; width: calc(256px * var(--s)); height: calc(224px * var(--s)); background: #000; border: 4px solid #4a5a9a; border-radius: 4px; overflow: hidden; }
 #screen { width: 100%; height: 100%; image-rendering: pixelated; display: block; }
+
+#admin-panel { display: flex; flex-direction: column; gap: 6px; width: 160px; padding: 8px; background: #1b2350; border: 2px solid #ff6b6b; border-radius: 4px; font-size: 12px; }
+#admin-panel[hidden] { display: none; }
+#admin-panel h2 { margin: 0 0 2px; font-size: 13px; color: #ff9b9b; }
+#admin-panel button { font: inherit; padding: 5px 6px; cursor: pointer; background: #2a3a9a; color: #fff; border: 1px solid #4a5a9a; border-radius: 3px; }
+#admin-panel button:hover { background: #3a4aba; }
+#admin-panel button.danger { background: #8a1f1f; border-color: #ff6b6b; margin-top: 4px; }
+#admin-panel button.danger:hover { background: #a82a2a; }
+#admin-unlock-form { display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
+#admin-unlock-form label { flex-basis: 100%; }
+#admin-unlock-day { width: 50px; font: inherit; padding: 3px; color: #fff; background: #0a0f33; border: 1px solid #4a5a9a; }
 
 #toast { position: absolute; top: calc(6px * var(--s)); left: 50%; transform: translateX(-50%); max-width: 90%; padding: calc(2px * var(--s)) calc(6px * var(--s)); background: rgba(20, 28, 72, .95); border: 2px solid #fff; font-size: calc(5.5px * var(--s)); text-align: center; opacity: 0; transition: opacity .2s; pointer-events: none; }
 #toast.show { opacity: 1; }
