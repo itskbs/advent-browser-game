@@ -32,8 +32,23 @@ function showLoginScreen() {
   });
 }
 
+// ---------- Intro ----------
+function showIntroScreen() {
+  const overlay = document.getElementById('intro-overlay');
+  const closeBtn = document.getElementById('intro-close');
+  overlay.hidden = false;
+  return new Promise((resolve) => {
+    closeBtn.addEventListener('click', function onClose() {
+      closeBtn.removeEventListener('click', onClose);
+      overlay.hidden = true;
+      resolve();
+    });
+  });
+}
+
 async function boot() {
   const session = (await fetchMe()) || (await showLoginScreen());
+  if (session.isNewUser) await showIntroScreen();
   applyAdmin(session.isAdmin);
 
   document.getElementById('user-name').textContent = session.username;
