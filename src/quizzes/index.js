@@ -1,9 +1,11 @@
 import { runChoice } from './choice.js';
 import { runText } from './text.js';
+import { runSudoku } from './sudoku.js';
+import { runChess } from './chess.js';
 
-// Neuer Quiz-Typ (sudoku, schach, kreuzwort ...): Modul schreiben und hier eintragen.
+// Neuer Quiz-Typ (kreuzwort ...): Modul schreiben und hier eintragen.
 // Signatur: async (ui, house) => boolean  (true = gelöst)
-const QUIZ_TYPES = { choice: runChoice, text: runText };
+const QUIZ_TYPES = { choice: runChoice, text: runText, sudoku: runSudoku, chess: runChess };
 
 export async function runHouse(ui, house, state) {
   const { npc } = house;

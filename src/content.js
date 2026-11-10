@@ -33,9 +33,59 @@ const PLACEHOLDER_KINDS = ['Sudoku', 'Kreuzworträtsel', 'Schachpuzzle', 'Logikr
 
 // Echte Beispiel-Rätsel für die ersten Häuser, damit man die Quiz-Typen sieht.
 const REAL = {
-  1: { type: 'choice', question: 'Wie viele Kerzen hat ein klassischer Adventskranz?', options: ['2', '3', '4', '5'], answer: 2 },
-  2: { type: 'choice', question: 'Welches Tier zieht in der Geschichte den Schlitten des Weihnachtsmanns?', options: ['Pferd', 'Rentier', 'Hirsch', 'Elch'], answer: 1 },
-  3: { type: 'text', question: 'Ich habe viele Zähne, aber ich beiße nie. Was bin ich?', accept: ['kamm', 'der kamm', 'ein kamm'] },
+  1: {
+    type: 'sudoku',
+    question: 'Ein etwas kniffligeres Sudoku: Jede Zahl von 1 bis 9 darf in jeder Zeile, Spalte und jedem 3x3-Block nur einmal vorkommen.',
+    puzzle: [
+      [5, 0, 4, 6, 7, 8, 0, 1, 2],
+      [6, 7, 2, 0, 9, 5, 3, 4, 8],
+      [0, 9, 8, 3, 4, 0, 5, 6, 7],
+      [8, 5, 0, 7, 6, 1, 4, 2, 0],
+      [4, 2, 6, 8, 0, 3, 7, 9, 1],
+      [7, 0, 3, 9, 2, 4, 0, 5, 6],
+      [9, 6, 1, 0, 3, 7, 2, 8, 4],
+      [0, 8, 7, 4, 1, 9, 6, 0, 5],
+      [3, 4, 5, 2, 8, 0, 1, 7, 0],
+    ],
+    solution: [
+      [5, 3, 4, 6, 7, 8, 9, 1, 2],
+      [6, 7, 2, 1, 9, 5, 3, 4, 8],
+      [1, 9, 8, 3, 4, 2, 5, 6, 7],
+      [8, 5, 9, 7, 6, 1, 4, 2, 3],
+      [4, 2, 6, 8, 5, 3, 7, 9, 1],
+      [7, 1, 3, 9, 2, 4, 8, 5, 6],
+      [9, 6, 1, 5, 3, 7, 2, 8, 4],
+      [2, 8, 7, 4, 1, 9, 6, 3, 5],
+      [3, 4, 5, 2, 8, 6, 1, 7, 9],
+    ],
+  },
+  2: {
+    type: 'chess',
+    question: 'Ein einfaches Schachrätsel: Weiß ist am Zug. Finde das Matt in einem Zug!',
+    board: [
+      [null, null, null, null, null, null, 'bK', null],
+      [null, null, null, null, null, 'bP', 'bP', 'bP'],
+      [null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null],
+      ['wR', null, null, null, 'wK', null, null, null],
+    ],
+    accept: ['Ta8', 'Ra8', 'a1a8'],
+  },
+  3: {
+    type: 'text',
+    question:
+      'Ein kleines Logikrätsel: Flinke, Bimmel und Krümel haben je eine andere Mützenfarbe (rot, grün, blau) ' +
+      'und backen je eine andere Plätzchensorte (Zimtsterne, Vanillekipferl, Spekulatius).\n\n' +
+      '1. Wer die rote Mütze trägt, backt keine Zimtsterne.\n' +
+      '2. Bimmel mag die Farbe Grün nicht.\n' +
+      '3. Krümel backt Vanillekipferl.\n' +
+      '4. Flinke trägt die rote Mütze.\n\n' +
+      'Wer backt die Zimtsterne?',
+    accept: ['bimmel'],
+  },
   4: { type: 'choice', question: 'In welchem Monat feiert man den Nikolaustag?', options: ['November', 'Dezember', 'Januar'], answer: 1 },
   5: { type: 'text', question: 'Wie viele Tage hat der Dezember? Gib die Zahl ein.', accept: ['31'] },
 };
