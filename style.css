@@ -45,6 +45,34 @@ html, body { margin: 0; height: 100%; background: #0d1226; color: #e8ecff; font-
 #hint { position: absolute; right: calc(8px * var(--s)); bottom: calc(3px * var(--s)); color: #ffd85a; animation: blink .8s steps(2) infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
+#board { margin: calc(5px * var(--s)) 0 calc(2px * var(--s)); }
+#board[hidden] { display: none; }
+
+.sudoku-board, .chess-board { display: grid; width: max-content; margin: 0 auto; border: 2px solid #ffd85a; }
+.sudoku-board { grid-template-columns: repeat(var(--size), var(--cell)); }
+.chess-board { grid-template-columns: repeat(8, var(--cell)); }
+
+.sudoku-board .cell { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center;
+  font-size: calc(var(--cell) * 0.5); font-weight: bold; border: 1px solid #39459c; background: #0a0f33; color: #fff; }
+.sudoku-board .cell.given { color: #8b97d6; background: #141c4a; }
+.sudoku-board .cell.blank { color: #ffd85a; cursor: pointer; }
+.sudoku-board .cell.blank:hover { background: #1b2a6a; }
+.sudoku-board .cell.sel { background: #3a4aba; box-shadow: inset 0 0 0 2px #ffd85a; }
+.sudoku-board .cell.edge-top { border-top: 2px solid #ffd85a; }
+.sudoku-board .cell.edge-left { border-left: 2px solid #ffd85a; }
+.sudoku-board .cell.edge-right { border-right: 2px solid #ffd85a; }
+.sudoku-board .cell.edge-bottom { border-bottom: 2px solid #ffd85a; }
+
+.chess-board .sq { width: var(--cell); height: var(--cell); display: flex; align-items: center; justify-content: center;
+  font-size: calc(var(--cell) * 0.65); line-height: 1; user-select: none; }
+.chess-board .sq.light { background: #3a4aba; }
+.chess-board .sq.dark { background: #18206a; }
+.chess-board .sq.selected { box-shadow: inset 0 0 0 3px #ffd85a; }
+.chess-board .sq.legal { box-shadow: inset 0 0 0 3px rgba(255, 216, 90, .7); cursor: pointer; }
+.chess-board .sq.legal:hover { filter: brightness(1.25); }
+.chess-board .sq.white-piece { color: #fff; }
+.chess-board .sq.black-piece { color: #ff9b9b; }
+
 footer { font-size: 12px; color: #8b97d6; text-align: center; }
 footer button { font: inherit; color: #ffd85a; background: none; border: none; cursor: pointer; text-decoration: underline; padding: 0; }
 

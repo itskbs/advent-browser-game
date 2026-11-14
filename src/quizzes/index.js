@@ -2,10 +2,11 @@ import { runChoice } from './choice.js';
 import { runText } from './text.js';
 import { runSudoku } from './sudoku.js';
 import { runChess } from './chess.js';
+import { runCode } from './code.js';
 
 // Neuer Quiz-Typ (kreuzwort ...): Modul schreiben und hier eintragen.
 // Signatur: async (ui, house) => boolean  (true = gelöst)
-const QUIZ_TYPES = { choice: runChoice, text: runText, sudoku: runSudoku, chess: runChess };
+const QUIZ_TYPES = { choice: runChoice, text: runText, sudoku: runSudoku, chess: runChess, code: runCode };
 
 export async function runHouse(ui, house, state) {
   const { npc } = house;
@@ -23,6 +24,8 @@ export async function runHouse(ui, house, state) {
     await ui.say(npc.name, 'Kein Stress! Komm einfach wieder, wenn du bereit bist.');
     return;
   }
+
+  if (house.quiz.openUrl) window.open(house.quiz.openUrl, '_blank');
 
   await ui.say(npc.name, house.win);
   state.solve(house.day);
